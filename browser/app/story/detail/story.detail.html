@@ -1,0 +1,22 @@
+<div class="container story-container">
+	<div class="large-font" ng-show="currentUser">
+		<span contenteditable class="large-font form-like" ng-model="story.title" ng-change="updateTitle()"></span>
+		<span class="muted">by</span>
+		<select ng-options="user as user.name for user in users track by user._id" ng-model="selected" ng-change="updateAuthor()"></select>
+	</div>
+
+	<div class="large-font" ng-hide="currentUser">
+		<h2>{{story.title}}</h2><p>by</p>
+		<h2>{{story.author}}</h2>
+	</div>
+	<br>
+	<p contenteditable
+		ng-repeat="paragraph in story.paragraphs"
+		ng-change="updateParagraph($index, paragraph)"
+		ng-model="paragraph"
+		placeholder="(text here)"
+		ng-show="currentUser"></p>
+
+	<div ng-repeat="paragraph in story.paragraphs" ng-hide="currentUser">{{paragraph}}</div>
+	<button class="btn btn-default" ng-click="addParagraph()" ng-show="currentUser">add paragraph</button>
+</div>
